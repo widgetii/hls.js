@@ -4,6 +4,7 @@ import {
   getStartDTS,
   offsetStartDTS,
   parseInitSegment,
+  removeAdditionalTracks,
 } from '../utils/mp4-tools';
 import { ElementaryStreamTypes } from '../loader/fragment';
 import { logger } from '../utils/logger';
@@ -20,15 +21,27 @@ import type {
   DemuxedUserdataTrack,
   PassthroughVideoTrack,
 } from '../types/demuxer';
+import type { HlsEventEmitter } from '../events';
+import type { HlsConfig } from '../config';
 
 class PassThroughRemuxer implements Remuxer {
   private emitInitSegment: boolean = false;
+  private config: HlsConfig;
   private audioCodec?: string;
   private videoCodec?: string;
   private initData?: InitData;
   private initPTS?: number;
   private initTracks?: TrackSet;
   private lastEndDTS: number | null = null;
+
+  constructor(
+    observer: HlsEventEmitter,
+    config: HlsConfig,
+    typeSupported,
+    vendor = ''
+  ) {
+    this.config = config;
+  }
 
   destroy() {}
 
@@ -59,6 +72,8 @@ class PassThroughRemuxer implements Remuxer {
       this.initData = undefined;
       return;
     }
+    if (this.config.disableAudio)
+      removeAdditionalTracks(initSegment, ['moov', 'trak']);
     const initData = (this.initData = parseInitSegment(initSegment));
 
     // Get codec from initSegment or fallback to default

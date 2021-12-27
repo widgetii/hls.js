@@ -584,3 +584,14 @@ export function appendUint8Array(
 
   return temp;
 }
+
+export function removeAdditionalTracks(data: Uint8Array, path: Array<string>) {
+  findBox(data, path).slice(1).forEach((trak) => {
+      // trak.start points to atom's inner body, we need change
+      // trak name to exclude in from MSE parsing, e.g. trak -> free
+      data[trak.start - 4] = 102
+      data[trak.start - 3] = 114
+      data[trak.start - 2] = 101
+      data[trak.start - 1] = 101
+  })
+}
