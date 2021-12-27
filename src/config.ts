@@ -171,6 +171,7 @@ export type HlsConfig = {
   // Alt Audio
   audioStreamController?: typeof AudioStreamController;
   audioTrackController?: typeof AudioTrackController;
+  disableAudio: boolean;
   // Subtitle
   subtitleStreamController?: typeof SubtitleStreamController;
   subtitleTrackController?: typeof SubtitleTrackController;
@@ -279,6 +280,7 @@ export const hlsDefaultConfig: HlsConfig = {
   testBandwidth: true,
   progressive: false,
   lowLatencyMode: true,
+  disableAudio: false,
   cmcd: undefined,
 
   // Dynamic Modules
