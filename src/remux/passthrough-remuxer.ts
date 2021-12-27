@@ -48,6 +48,8 @@ class PassThroughRemuxer implements Remuxer {
   resetTimeStamp(defaultInitPTS) {
     this.initPTS = defaultInitPTS;
     this.lastEndDTS = null;
+    if (this.config.disableAudio)
+      removeAdditionalTracks(initSegment, ['moov', 'trak']);
   }
 
   resetNextTimestamp() {
