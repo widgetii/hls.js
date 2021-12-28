@@ -1,12 +1,13 @@
 {
-  "name": "hls.js",
+  "name": "@widgetii/hls.js",
+  "version": "1.1.2",
   "license": "Apache-2.0",
   "description": "JavaScript HLS client using MediaSourceExtension",
   "homepage": "https://github.com/video-dev/hls.js",
   "authors": "Guillaume du Pontavice <g.du.pontavice@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/video-dev/hls.js"
+    "url": "https://github.com/widgetii/hls.js"
   },
   "bugs": {
     "url": "https://github.com/video-dev/hls.js/issues"
